@@ -14,7 +14,7 @@ const survey = [
     {
         questionType: 'SelectionGroup',
         questionText:
-        '¿Qué momento del día prefieres?',
+            '¿Qué momento del día prefieres?',
         questionId: 'momento_dia',
         options: [
             {
@@ -38,7 +38,7 @@ const survey = [
     {
         questionType: 'SelectionGroup',
         questionText:
-        'Elige entrar a algún lugar',
+            'Elige entrar a algún lugar',
         questionId: 'lugar',
         options: [
             {
@@ -62,7 +62,7 @@ const survey = [
     {
         questionType: 'SelectionGroup',
         questionText:
-        'Entrando a ese lugar, saludas a',
+            'Entrando a ese lugar, saludas a',
         questionId: 'saludas',
         options: [
             {
@@ -86,7 +86,7 @@ const survey = [
     {
         questionType: 'SelectionGroup',
         questionText:
-        'Notas que tienes hambre, ¿qué comes?',
+            'Notas que tienes hambre, ¿qué comes?',
         questionId: 'comida',
         options: [
             {
@@ -110,7 +110,7 @@ const survey = [
     {
         questionType: 'SelectionGroup',
         questionText:
-        'Cuando terminas, ¿qué haces?',
+            'Cuando terminas, ¿qué haces?',
         questionId: 'al_terminar',
         options: [
             {
@@ -134,7 +134,7 @@ const survey = [
     {
         questionType: 'SelectionGroup',
         questionText:
-        'Justo después, escuchas una canción de',
+            'Justo después, escuchas una canción de',
         questionId: 'musica',
         options: [
             {
@@ -158,7 +158,7 @@ const survey = [
     {
         questionType: 'SelectionGroup',
         questionText:
-        'Al salir, te retiras',
+            'Al salir, te retiras',
         questionId: 'transporte',
         options: [
             {
@@ -203,7 +203,7 @@ export default class SurveyScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { backgroundColor: PURPLE, answersSoFar: '' };
+        this.state = { backgroundColor: 'white', answersSoFar: '' };
     }
 
     onSurveyFinished(answers) {
@@ -312,7 +312,7 @@ export default class SurveyScreen extends Component {
                     title={data.optionText}
                     onPress={onPress}
                     color={isSelected ? GREEN : PURPLE}
-                    style={isSelected ? { fontWeight: 'bold' } : {}} 
+                    style={isSelected ? { fontWeight: 'bold' } : {}}
                     key={`button_${index}`}
                 />
             </View>
@@ -325,40 +325,6 @@ export default class SurveyScreen extends Component {
                 <Text numLines={1} style={styles.questionText}>{questionText}</Text>
             </View>
         );
-    }
-
-    renderTextBox(onChange, value, placeholder, onBlur) {
-        return (
-            <View>
-                <TextInput
-                    style={styles.textBox}
-                    onChangeText={text => onChange(text)}
-                    numberOfLines={1}
-                    underlineColorAndroid={'white'}
-                    placeholder={placeholder}
-                    placeholderTextColor={'rgba(184,184,184,1)'}
-                    value={value}
-                    multiline
-                    onBlur={onBlur}
-                    blurOnSubmit
-                    returnKeyType='done'
-                />
-            </View>
-        );
-    }
-
-    renderNumericInput(onChange, value, placeholder, onBlur) {
-        return (<TextInput 
-            style={styles.numericInput}
-            onChangeText={text => { onChange(text); }}
-            underlineColorAndroid={'white'}
-            placeholderTextColor={'rgba(184,184,184,1)'}
-            value={String(value)}
-            placeholder={placeholder}
-            keyboardType={'numeric'}
-            onBlur={onBlur}
-            maxLength={3}
-        />);
     }
 
     renderInfoText(infoText) {
@@ -378,7 +344,6 @@ export default class SurveyScreen extends Component {
                         survey={survey}
                         renderSelector={this.renderButton.bind(this)}
                         containerStyle={styles.surveyContainer}
-                        selectionGroupContainerStyle={styles.selectionGroupContainer}
                         navButtonContainerStyle={{ flexDirection: 'row', justifyContent: 'space-around' }}
                         renderPrevious={this.renderPreviousButton.bind(this)}
                         renderNext={this.renderNextButton.bind(this)}
@@ -386,18 +351,16 @@ export default class SurveyScreen extends Component {
                         renderQuestionText={this.renderQuestionText}
                         onSurveyFinished={(answers) => this.onSurveyFinished(answers)}
                         onAnswerSubmitted={(answer) => this.onAnswerSubmitted(answer)}
-                        renderTextInput={this.renderTextBox}
-                        renderNumericInput={this.renderNumericInput}
                         renderInfo={this.renderInfoText}
                     />
-                    
+
                 </View>
-                
+
                 <ScrollView style={styles.answersContainer}>
-                    <Text style={{textAlign:'center'}}>JSON output</Text>
+                    <Text style={{ textAlign: 'center' }}>JSON output</Text>
                     <Text>{this.state.answersSoFar}</Text>
                 </ScrollView>
-                
+
             </View>
         );
     }
@@ -417,10 +380,10 @@ const styles = StyleSheet.create({
         maxWidth: '90%',
         alignItems: 'stretch',
         justifyContent: 'center',
-        
-        
+
+
         borderRadius: 10,
-        flex: 1, 
+        flex: 1,
     },
     answersContainer: {
         width: '90%',
@@ -446,17 +409,12 @@ const styles = StyleSheet.create({
         flexGrow: 0,
         elevation: 20,
     },
-    selectionGroupContainer: {
-        flexDirection: 'column',
-        backgroundColor: 'white',
-        alignContent: 'flex-end',
-    },
     navButtonText: {
         margin: 10,
         fontSize: 20,
         color: 'white',
-        
-        
+
+
         width: 'auto'
     },
     answers: {
@@ -464,7 +422,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     navigationButton: {
-        
+
         minHeight: 40,
         backgroundColor: GREEN,
         padding: 0,
@@ -473,7 +431,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    
     background: {
         flex: 1,
         justifyContent: 'center',
@@ -482,27 +439,6 @@ const styles = StyleSheet.create({
     questionText: {
         marginBottom: 20,
         fontSize: 20
-    },
-    textBox: {
-        borderWidth: 1,
-        borderColor: 'rgba(204,204,204,1)',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        
-        padding: 10,
-        textAlignVertical: 'top',
-        marginLeft: 10,
-        marginRight: 10
-    },
-    numericInput: {
-        borderWidth: 1,
-        borderColor: 'rgba(204,204,204,1)',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        padding: 10,
-        textAlignVertical: 'top',
-        marginLeft: 10,
-        marginRight: 10
     },
     infoText: {
         marginBottom: 20,

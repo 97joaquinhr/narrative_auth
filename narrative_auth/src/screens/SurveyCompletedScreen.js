@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const GREEN = 'rgba(141,196,63,1)';
-const PURPLE = 'rgba(108,48,237,1)';
+const WHITE = 'rgba(255,255,255,1)';
 export default class SurveyCompletedScreen extends Component {
     static navigationOptions = () => {
         return {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: PURPLE,
+        backgroundColor: 'white',
     },
     container: {
         minWidth: '70%',
