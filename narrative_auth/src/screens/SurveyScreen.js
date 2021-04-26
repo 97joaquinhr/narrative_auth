@@ -12,193 +12,171 @@ const survey = [
         questionText: 'Welcome to the React Native Simple Survey Example app! Tap next to continue'
     },
     {
-        questionType: 'TextInput',
-        questionText: 'Simple Survey supports free form text input.\n\nWhat is your favorite color?',
-        questionId: 'favoriteColor',
-        placeholderText: 'Tell me your favorite color!',
-    },
-    {
-        questionType: 'NumericInput',
-        questionText: 'It also supports numeric input. Enter your favorite number here!',
-        questionId: 'favoriteNumber',
-        placeholderText: '42',
-    },
-    {
-        questionType: 'NumericInput',
-        questionText: 'New to 3.0, default values!\n\nHow many balls can you juggle at once?',
-        questionId: 'jugglingBalls',
-        defaultValue: '0'
-    },
-    {
         questionType: 'SelectionGroup',
         questionText:
-            'Naturally Simple Survey also has multiple choice questions. By default they acts like checkboxes, answers can be selected and deselected.\n\nWhat is your favorite pet?',
-        questionId: 'favoritePet',
+        '¿Qué momento del día prefieres?',
+        questionId: 'momento_dia',
         options: [
             {
-                optionText: 'Dogs',
-                value: 'dog'
+                optionText: 'Mañana',
+                value: 'a_manana'
             },
             {
-                optionText: 'Cats',
-                value: 'cat'
+                optionText: 'Medio día',
+                value: 'b_medio_dia'
             },
             {
-                optionText: 'Ferrets',
-                value: 'ferret'
+                optionText: 'Atardecer',
+                value: 'c_atardecer'
             },
             {
-                optionText: 'Snakes',
-                value: 'snake'
-            },
-            {
-                optionText: 'Guinea pigs',
-                value: 'guinea'
-            }
-        ]
-    },
-    {
-        questionType: 'MultipleSelectionGroup',
-        questionText:
-            'Select two or three of your favorite foods!',
-        questionId: 'favoriteFoods',
-        questionSettings: {
-            maxMultiSelect: 3,
-            minMultiSelect: 2,
-        },
-        options: [
-            {
-                optionText: 'Sticky rice dumplings',
-                value: 'sticky rice dumplings'
-            },
-            {
-                optionText: 'Pad Thai',
-                value: 'pad thai'
-            },
-            {
-                optionText: 'Steak and Eggs',
-                value: 'steak and eggs'
-            },
-            {
-                optionText: 'Tofu',
-                value: 'tofu'
-            },
-            {
-                optionText: 'Ice cream!',
-                value: 'ice cream'
-            },
-            {
-                optionText: 'Injera',
-                value: 'injera'
-            },
-            {
-                optionText: 'Biryani',
-                value: 'biryani'
-            },
-            {
-                optionText: 'Tamales',
-                value: 'tamales'
-            },
-        ]
-    },
-    {
-        questionType: 'MultipleSelectionGroup',
-        questionText:
-            'Simple Survey can auto advance after a question has been answered. Select two things you do to relax:',
-        questionId: 'relax',
-        questionSettings: {
-            maxMultiSelect: 2,
-            minMultiSelect: 2,
-            autoAdvance: true,
-        },
-        options: [
-            {
-                optionText: 'Reading a good book',
-                value: 'reading'
-            },
-            {
-                optionText: 'Going on vacation',
-                value: 'vacations'
-            },
-            {
-                optionText: 'Eating meals with family',
-                value: 'meals'
-            },
-            {
-                optionText: 'Heading to the ocean',
-                value: 'ocean'
+                optionText: 'Noche',
+                value: 'd_noche'
             }
         ]
     },
     {
         questionType: 'SelectionGroup',
         questionText:
-            'Simple Survey can also simulate radio button behavior. Pick from below: ',
-        questionId: 'radio',
-        questionSettings: {
-            allowDeselect: false,
-        },
+        'Elige entrar a algún lugar',
+        questionId: 'lugar',
         options: [
             {
-                optionText: 'I was forced to pick option 1',
-                value: 'option 1'
+                optionText: 'Una casa',
+                value: 'a_casa'
             },
             {
-                optionText: 'I have to pick option 2',
-                value: 'option 2'
+                optionText: 'Una oficina',
+                value: 'b_oficina'
             },
             {
-                optionText: 'I guess option 3',
-                value: 'option 3'
+                optionText: 'Una escuela',
+                value: 'c_escuela'
+            },
+            {
+                optionText: 'Un cuarto',
+                value: 'd_cuarto'
             }
         ]
     },
     {
         questionType: 'SelectionGroup',
         questionText:
-            'Simple Survey also supports default selections: ',
-        questionId: 'singleDefault',
-        questionSettings: {
-            defaultSelection: 0
-        },
+        'Entrando a ese lugar, saludas a',
+        questionId: 'saludas',
         options: [
             {
-                optionText: 'This is the default option',
-                value: 'default'
+                optionText: 'Un amigo',
+                value: 'a_amigo'
             },
             {
-                optionText: 'This is the alternative option',
-                value: 'alternative'
+                optionText: 'Un familiar',
+                value: 'b_familiar'
             },
+            {
+                optionText: 'Un conocido',
+                value: 'c_conocido'
+            },
+            {
+                optionText: 'Un animal',
+                value: 'd_animal'
+            }
         ]
     },
     {
-        questionType: 'MultipleSelectionGroup',
+        questionType: 'SelectionGroup',
         questionText:
-            'And of course it supports multiple defaults: ',
-        questionId: 'multipleDefaults',
-        questionSettings: {
-            defaultSelection: [0, 2],
-            maxMultiSelect: 2,
-            minMultiSelect: 2,
-        },
+        'Notas que tienes hambre, ¿qué comes?',
+        questionId: 'comida',
         options: [
             {
-                optionText: 'This is the first default option',
-                value: 'first default'
+                optionText: 'Una fruta',
+                value: 'a_fruta'
             },
             {
-                optionText: 'This is the first alternate option',
-                value: 'first alternative'
+                optionText: 'Una verdura',
+                value: 'b_verdura'
             },
             {
-                optionText: 'This is the second default option',
-                value: 'second default'
+                optionText: 'Una botana',
+                value: 'c_botana'
             },
             {
-                optionText: 'This is the second alternate option',
-                value: 'second alternative'
+                optionText: 'Un guisado',
+                value: 'd_guisado'
+            }
+        ]
+    },
+    {
+        questionType: 'SelectionGroup',
+        questionText:
+        'Cuando terminas, ¿qué haces?',
+        questionId: 'al_terminar',
+        options: [
+            {
+                optionText: 'Duermes',
+                value: 'a_duermes'
             },
+            {
+                optionText: 'Ordenas la cocina',
+                value: 'b_cocina'
+            },
+            {
+                optionText: 'Guardas las cosas',
+                value: 'c_guardas'
+            },
+            {
+                optionText: 'Comes algo más',
+                value: 'd_comes_mas'
+            }
+        ]
+    },
+    {
+        questionType: 'SelectionGroup',
+        questionText:
+        'Justo después, escuchas una canción de',
+        questionId: 'musica',
+        options: [
+            {
+                optionText: 'Pop',
+                value: 'a_pop'
+            },
+            {
+                optionText: 'Hip Hop',
+                value: 'b_hip_hop'
+            },
+            {
+                optionText: 'Jazz',
+                value: 'c_jazz'
+            },
+            {
+                optionText: 'Clasica',
+                value: 'd_clasica'
+            }
+        ]
+    },
+    {
+        questionType: 'SelectionGroup',
+        questionText:
+        'Al salir, te retiras',
+        questionId: 'transporte',
+        options: [
+            {
+                optionText: 'En coche',
+                value: 'a_coche'
+            },
+            {
+                optionText: 'Caminando',
+                value: 'b_caminando'
+            },
+            {
+                optionText: 'En taxi',
+                value: 'c_taxi'
+            },
+            {
+                optionText: 'En camión',
+                value: 'd_camión'
+            }
         ]
     },
     {

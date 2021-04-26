@@ -3,7 +3,6 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const GREEN = 'rgba(141,196,63,1)';
 const PURPLE = 'rgba(108,48,237,1)';
-const defaultAnswers = { favoriteColor: 'nothing', favoriteNumber: '0', favoritePet: 'nothing' };
 export default class SurveyCompletedScreen extends Component {
     static navigationOptions = () => {
         return {
@@ -21,22 +20,20 @@ export default class SurveyCompletedScreen extends Component {
     }
 
     render() {
-        const answers = this.props.navigation.getParam('surveyAnswers', defaultAnswers);
+        const answers = this.props.navigation.getParam('surveyAnswers');
 
         return (
             <View style={styles.background}>
                 <View style={styles.container}>
                     <ScrollView>
                         <Text style={styles.questionText}>The results are in!</Text>
-                        <Text style={styles.questionText}>Your favorite color: {answers.favoriteColor}</Text>
-                        <Text style={styles.questionText}>Your favorite number: {answers.favoriteNumber}</Text>
-                        <Text style={styles.questionText}>You said you can juggle {answers.jugglingBalls} balls at once{answers.jugglingBalls > 1 ? '!' : '.'}</Text>
-                        <Text style={styles.questionText}>Your favorite pet: {answers.favoritePet.value}</Text>
-                        <Text style={styles.questionText}>Your favorite foods: {answers.favoriteFoods[0].value} and {answers.favoriteFoods[1].value}</Text>
-                        <Text style={styles.questionText}>How you relax: {answers.relax[0].value} and {answers.relax[1].value}</Text>
-                        <Text style={styles.questionText}>When confronted with a radio button you picked: {answers.radio.value}</Text>
-                        <Text style={styles.questionText}>When given a default you chose: the {answers.singleDefault.value}</Text>
-                        <Text style={styles.questionText}>When given a multiple defaults you chose: the {answers.multipleDefaults[0].value} and the {answers.multipleDefaults[1].value}</Text>
+                        <Text style={styles.questionText}>1 {answers.momento_dia.optionText}: {answers.momento_dia.value}</Text>
+                        <Text style={styles.questionText}>2 {answers.lugar.optionText}: {answers.lugar.value}</Text>
+                        <Text style={styles.questionText}>3 {answers.saludas.optionText}: {answers.saludas.value}</Text>
+                        <Text style={styles.questionText}>4 {answers.comida.optionText}: {answers.comida.value}</Text>
+                        <Text style={styles.questionText}>5 {answers.al_terminar.optionText}: {answers.al_terminar.value}</Text>
+                        <Text style={styles.questionText}>6 {answers.musica.optionText}: {answers.musica.value}</Text>
+                        <Text style={styles.questionText}>7 {answers.transporte.optionText}: {answers.transporte.value}</Text>
                         <Text>Raw JSON: {JSON.stringify(this.props.navigation.getParam('surveyAnswers', {}))}</Text>
                     </ScrollView>
                 </View>
