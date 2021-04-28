@@ -37,7 +37,8 @@ app.use(authRoutes);
 const PORT = process.env.PORT
 
 
-const mongoUri = ''
+const mongoUri = process.env.MONGO_DB
+
 
 mongoose.connect(mongoUri,{
     useNewUrlParser:true,
