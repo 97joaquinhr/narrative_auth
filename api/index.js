@@ -5,7 +5,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
-const requireAuth = require('./middlewares/requireAuth');
 
 const app = express();
 
@@ -36,9 +35,7 @@ app.use(authRoutes);
 
 const PORT = process.env.PORT
 
-
 const mongoUri = process.env.MONGO_DB
-
 
 mongoose.connect(mongoUri,{
     useNewUrlParser:true,
@@ -53,8 +50,8 @@ mongoose.connection.on('error',(err)=>{
 });
 
 
-app.get('/',requireAuth,(req,res)=>{
-    res.send(`Your phone: ${req.user.phone}`);
+app.get('/',(req,res)=>{
+    res.send(`Hi there`);
 });
 
 app.listen(PORT, () => {
