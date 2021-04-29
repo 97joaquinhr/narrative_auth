@@ -6,16 +6,7 @@ const WHITE = 'rgba(255,255,255,1)';
 export default class SurveyCompletedScreen extends Component {
     static navigationOptions = () => {
         return {
-            headerStyle: {
-                backgroundColor: GREEN,
-                height: 40,
-                elevation: 5,
-            },
-            headerTintColor: '#fff',
-            headerTitle: 'Survey Results',
-            headerTitleStyle: {
-                flex: 1,
-            }
+            title: 'Autenticación exitosa'
         };
     }
 

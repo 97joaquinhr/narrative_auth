@@ -188,16 +188,7 @@ const survey = [
 export default class SurveyScreen extends Component {
     static navigationOptions = () => {
         return {
-            headerStyle: {
-                backgroundColor: GREEN,
-                height: 40,
-                elevation: 5,
-            },
-            headerTintColor: '#fff',
-            headerTitle: 'Sample Survey',
-            headerTitleStyle: {
-                flex: 1,
-            }
+            title: 'Autenticación narrativa'
         };
     }
 
