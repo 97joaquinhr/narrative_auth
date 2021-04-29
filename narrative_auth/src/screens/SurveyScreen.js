@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Button, ScrollView, Text, TextInput, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { Button } from 'react-native-elements';
 import { SimpleSurvey } from 'react-native-simple-survey';
-import { COLORS } from '../res/validColors';
-
-const GREEN = 'rgba(141,196,63,1)';
-const PURPLE = 'rgba(108,48,237,1)';
 
 const survey = [
     {
@@ -202,26 +199,12 @@ export default class SurveyScreen extends Component {
          *  By using the spread operator, array entries with no values, such as info questions, are removed.
          *  This is also where a final cleanup of values, making them ready to insert into your DB or pass along
          *  to the rest of your code, can be done.
-         * 
          *  Answers are returned in an array, of the form 
          *  [
          *  {questionId: string, value: any},
          *  {questionId: string, value: any},
          *  ...
          *  ]
-         *  Questions of type selection group are more flexible, the entirity of the 'options' object is returned
-         *  to you.
-         *  
-         *  As an example
-         *  { 
-         *      questionId: "favoritePet", 
-         *      value: { 
-         *          optionText: "Dogs",
-         *          value: "dog"
-         *      }
-         *  }
-         *  This flexibility makes SelectionGroup an incredibly powerful component on its own. If needed it is a 
-         *  separate NPM package, react-native-selection-group, which has additional features such as multi-selection.
          */
 
         const infoQuestionsRemoved = [...answers];
@@ -234,9 +217,8 @@ export default class SurveyScreen extends Component {
     }
 
     /**
-     *  After each answer is submitted this function is called. Here you can take additional steps in response to the 
-     *  user's answers. From updating a 'correct answers' counter to exiting out of an onboarding flow if the user is 
-     *  is restricted (age, geo-fencing) from your app.
+     *  After each answer is submitted this function is called. Here you can take 
+     *  additional steps in response to the user's answers.
      */
     onAnswerSubmitted(answer) {
         this.setState({ answersSoFar: JSON.stringify(this.surveyRef.getAnswers(), 2) });
@@ -254,13 +236,12 @@ export default class SurveyScreen extends Component {
 
     renderPreviousButton(onPress, enabled) {
         return (
-            <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
+            <View style={{ flexGrow: 1, maxWidth: 120, marginTop: 20, marginBottom: 20 }}>
                 <Button
-                    color={GREEN}
                     onPress={onPress}
                     disabled={!enabled}
-                    backgroundColor={GREEN}
-                    title={'Previous'}
+                    title={'< Anterior'}
+                    type='outline'
                 />
             </View>
         );
@@ -268,13 +249,12 @@ export default class SurveyScreen extends Component {
 
     renderNextButton(onPress, enabled) {
         return (
-            <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
+            <View style={{ flexGrow: 1, maxWidth: 120, marginTop: 20, marginBottom: 20 }}>
                 <Button
-                    color={GREEN}
                     onPress={onPress}
                     disabled={!enabled}
-                    backgroundColor={GREEN}
-                    title={'Next'}
+                    title={'Siguiente >'}
+                    type='solid'
                 />
             </View>
         );
@@ -282,12 +262,11 @@ export default class SurveyScreen extends Component {
 
     renderFinishedButton(onPress, enabled) {
         return (
-            <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 10, marginBottom: 10 }}>
+            <View style={{ flexGrow: 1, maxWidth: 100, marginTop: 20, marginBottom: 20 }}>
                 <Button
-                    title={'Finished'}
+                    title={'Terminar'}
                     onPress={onPress}
                     disabled={!enabled}
-                    color={GREEN}
                 />
             </View>
         );
@@ -297,14 +276,17 @@ export default class SurveyScreen extends Component {
         return (
             <View
                 key={`selection_button_view_${index}`}
-                style={{ marginTop: 5, marginBottom: 5, justifyContent: 'flex-start' }}
+                style={{ margin:7, justifyContent: 'flex-start' }}
             >
                 <Button
                     title={data.optionText}
                     onPress={onPress}
-                    color={isSelected ? GREEN : PURPLE}
+                    type={isSelected ? 'solid' : 'outline' }
                     style={isSelected ? { fontWeight: 'bold' } : {}}
                     key={`button_${index}`}
+                    titleStyle={{
+                        fontSize:22
+                    }}
                 />
             </View>
         );
@@ -312,7 +294,7 @@ export default class SurveyScreen extends Component {
 
     renderQuestionText(questionText) {
         return (
-            <View style={{ marginLeft: 10, marginRight: 10 }}>
+            <View style={{ margin: 7 }}>
                 <Text numLines={1} style={styles.questionText}>{questionText}</Text>
             </View>
         );
@@ -320,7 +302,7 @@ export default class SurveyScreen extends Component {
 
     renderInfoText(infoText) {
         return (
-            <View style={{ marginLeft: 10, marginRight: 10 }}>
+            <View style={{ margin: 7 }}>
                 <Text style={styles.infoText}>{infoText}</Text>
             </View>
         );
@@ -329,52 +311,54 @@ export default class SurveyScreen extends Component {
     render() {
         return (
             <View style={[styles.background, { backgroundColor: this.state.backgroundColor }]}>
-                <View style={styles.container}>
-                    <SimpleSurvey
-                        ref={(s) => { this.surveyRef = s; }}
-                        survey={survey}
-                        renderSelector={this.renderButton.bind(this)}
-                        containerStyle={styles.surveyContainer}
-                        navButtonContainerStyle={{ flexDirection: 'row', justifyContent: 'space-around' }}
-                        renderPrevious={this.renderPreviousButton.bind(this)}
-                        renderNext={this.renderNextButton.bind(this)}
-                        renderFinished={this.renderFinishedButton.bind(this)}
-                        renderQuestionText={this.renderQuestionText}
-                        onSurveyFinished={(answers) => this.onSurveyFinished(answers)}
-                        onAnswerSubmitted={(answer) => this.onAnswerSubmitted(answer)}
-                        renderInfo={this.renderInfoText}
-                    />
-
-                </View>
-
-                <ScrollView style={styles.answersContainer}>
-                    <Text style={{ textAlign: 'center' }}>JSON output</Text>
-                    <Text>{this.state.answersSoFar}</Text>
-                </ScrollView>
-
+                <SimpleSurvey
+                    ref={(s) => { this.surveyRef = s; }}
+                    survey={survey}
+                    renderSelector={this.renderButton.bind(this)}
+                    containerStyle={styles.surveyContainer}
+                    navButtonContainerStyle={styles.navButtonContainerStyle}
+                    renderPrevious={this.renderPreviousButton.bind(this)}
+                    renderNext={this.renderNextButton.bind(this)}
+                    renderFinished={this.renderFinishedButton.bind(this)}
+                    renderQuestionText={this.renderQuestionText}
+                    onSurveyFinished={(answers) => this.onSurveyFinished(answers)}
+                    onAnswerSubmitted={(answer) => this.onAnswerSubmitted(answer)}
+                    renderInfo={this.renderInfoText}
+                />
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    button: {
-        margin: 10,
-        height: 30,
-        width: 140,
-        borderRadius: 10,
+    surveyContainer: {
+        flex:1,
+        padding:25,
+        width: '100%',
+        backgroundColor:'white',
+    },
+    background: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    container: {
-        minWidth: '70%',
-        maxWidth: '90%',
-        alignItems: 'stretch',
-        justifyContent: 'center',
-
-
-        borderRadius: 10,
-        flex: 1,
+    questionText: {
+        marginBottom: 20,
+        fontSize: 25
+    },
+    infoText: {
+        marginBottom: 20,
+        fontSize: 25,
+        marginLeft: 10
+    },
+    navButtonContainerStyle:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 30
+    },
+    answers: {
+        alignSelf: 'center',
+        marginBottom: 10,
     },
     answersContainer: {
         width: '90%',
@@ -386,54 +370,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         elevation: 20,
         borderRadius: 10,
-    },
-    surveyContainer: {
-        width: 'auto',
-        alignSelf: 'center',
-        backgroundColor: 'white',
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5,
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
-        alignContent: 'center',
-        padding: 5,
-        flexGrow: 0,
-        elevation: 20,
-    },
-    navButtonText: {
-        margin: 10,
-        fontSize: 20,
-        color: 'white',
-
-
-        width: 'auto'
-    },
-    answers: {
-        alignSelf: 'center',
-        marginBottom: 10,
-    },
-    navigationButton: {
-
-        minHeight: 40,
-        backgroundColor: GREEN,
-        padding: 0,
-        borderRadius: 100,
-        marginTop: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    background: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    questionText: {
-        marginBottom: 20,
-        fontSize: 20
-    },
-    infoText: {
-        marginBottom: 20,
-        fontSize: 20,
-        marginLeft: 10
-    },
+    }
 });
