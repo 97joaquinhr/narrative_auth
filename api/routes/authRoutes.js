@@ -6,34 +6,33 @@ const User = mongoose.model('User');
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
-  const { phone: username, password } = req.body;
+  const { username, password } = req.body;
   try {
     const user = new User({
-      phone: username,
+      username,
       password
     });
     await user.save();
-    res.send({ message: 'Registering' });
+    res.send({ message: 'Registrado' });
   } catch (err) {
     return res.status(422).send(err.message);
   }
 });
 
 router.post('/signin', async (req, res) => {
-  const { phone, password } = req.body;
+  const { username, password } = req.body;
 
-  if (!phone || !password) {
-    return res.status(422).send({ error: 'Must provide phone and password' });
+  if (!username || !password) {
+    return res.status(422).send({ error: 'Falta usuario o secuencia' });
   }
-  
-  const user = await User.findOne({ phone });
+  const user = await User.findOne({ username });
   if (!user) {
-    return res.status(422).send({ error: 'Invalid password or phone' });
+    return res.status(422).send({ error: 'Usuario o secuencia incorrecta' });
   }
-  if (!user.verified) {
-    return res.status(405).send({ error: 'Must verify account' });
+  if (user.password != password) {
+    return res.status(422).send({ error: 'Usuario o secuencia incorrecta' });
   }
-
+  res.send({ message: 'Sesión confirmada' });
 });
 
 
