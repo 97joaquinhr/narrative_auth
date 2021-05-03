@@ -1,12 +1,34 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { StyleSheet, TextInput, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { SimpleSurvey } from 'react-native-simple-survey';
 
 const survey = [
     {
         questionType: 'Info',
-        questionText: 'Welcome to the React Native Simple Survey Example app! Tap next to continue'
+        questionText: 'Proyecto de autenticación narrativa'
+    },
+    {
+        questionType: 'SelectionGroup',
+        questionText:
+            'Desea',
+        questionId: 'flow',
+        options: [
+            {
+                optionText: 'Iniciar sesión',
+                value: 'signin'
+            },
+            {
+                optionText: 'Registrarse',
+                value: 'signup'
+            }
+        ]
+    },
+    {
+        questionType: 'TextInput',
+        questionText: '¿Cuál es su usuario?',
+        questionId: 'username',
+        placeholderText: 'Inserte su usuario',
     },
     {
         questionType: 'SelectionGroup',
@@ -175,11 +197,7 @@ const survey = [
                 value: 'd_camión'
             }
         ]
-    },
-    {
-        questionType: 'Info',
-        questionText: 'That is all for the demo, tap finish to see your results!'
-    },
+    }
 ];
 
 export default class SurveyScreen extends Component {
@@ -300,6 +318,28 @@ export default class SurveyScreen extends Component {
         );
     }
 
+    renderTextBox(onChange, value, placeholder, onBlur) {
+        return (
+            <View>
+                <TextInput
+                    style={styles.textBox}
+                    onChangeText={text => onChange(text)}
+                    numberOfLines={1}
+                    underlineColorAndroid={'white'}
+                    placeholder={placeholder}
+                    placeholderTextColor={'rgba(184,184,184,1)'}
+                    value={value}
+                    multiline
+                    onBlur={onBlur}
+                    blurOnSubmit
+                    returnKeyType='done'
+                    autoCorrect={false}
+                    autoCapitalize={'none'}
+                />
+            </View>
+        );
+    }
+
     renderInfoText(infoText) {
         return (
             <View style={{ margin: 7 }}>
@@ -321,6 +361,7 @@ export default class SurveyScreen extends Component {
                     renderNext={this.renderNextButton.bind(this)}
                     renderFinished={this.renderFinishedButton.bind(this)}
                     renderQuestionText={this.renderQuestionText}
+                    renderTextInput={this.renderTextBox}
                     onSurveyFinished={(answers) => this.onSurveyFinished(answers)}
                     onAnswerSubmitted={(answer) => this.onAnswerSubmitted(answer)}
                     renderInfo={this.renderInfoText}
@@ -350,6 +391,17 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         fontSize: 25,
         marginLeft: 10
+    },
+    textBox: {
+        borderWidth: 1,
+        borderColor: 'rgba(204,204,204,1)',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 10,
+        textAlignVertical: 'top',
+        marginLeft: 10,
+        fontSize:22,
+        marginRight: 10
     },
     navButtonContainerStyle:{
         flexDirection: 'row',

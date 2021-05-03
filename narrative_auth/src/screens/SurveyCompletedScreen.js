@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native-elements';
+import expressAPI from '../api/expressApi';
+
 
 export default class SurveyCompletedScreen extends Component {
     static navigationOptions = () => {
@@ -15,22 +18,50 @@ export default class SurveyCompletedScreen extends Component {
             <View style={styles.background}>
                 <View style={styles.container}>
                     <ScrollView>
-                        <Text style={styles.questionText}>The results are in!</Text>
-                        <Text style={styles.questionText}>1 {answers.momento_dia.optionText}: {answers.momento_dia.value}</Text>
-                        <Text style={styles.questionText}>2 {answers.lugar.optionText}: {answers.lugar.value}</Text>
-                        <Text style={styles.questionText}>3 {answers.saludas.optionText}: {answers.saludas.value}</Text>
-                        <Text style={styles.questionText}>4 {answers.comida.optionText}: {answers.comida.value}</Text>
-                        <Text style={styles.questionText}>5 {answers.al_terminar.optionText}: {answers.al_terminar.value}</Text>
-                        <Text style={styles.questionText}>6 {answers.musica.optionText}: {answers.musica.value}</Text>
-                        <Text style={styles.questionText}>7 {answers.transporte.optionText}: {answers.transporte.value}</Text>
-                        <Text>Raw JSON: {JSON.stringify(this.props.navigation.getParam('surveyAnswers', {}))}</Text>
+                        <Text style={styles.questionText}>Revisar</Text>
+                        <Text style={styles.questionText}>Desea: {answers.flow.optionText}</Text>
+                        <Text style={styles.questionText}>Tu usuario: {answers.username}</Text>
+                        <Text style={styles.questionText}>1 {answers.momento_dia.optionText}</Text>
+                        <Text style={styles.questionText}>2 {answers.lugar.optionText}</Text>
+                        <Text style={styles.questionText}>3 {answers.saludas.optionText}</Text>
+                        <Text style={styles.questionText}>4 {answers.comida.optionText}</Text>
+                        <Text style={styles.questionText}>5 {answers.al_terminar.optionText}</Text>
+                        <Text style={styles.questionText}>6 {answers.musica.optionText}</Text>
+                        <Text style={styles.questionText}>7 {answers.transporte.optionText}</Text>
+                        {/* <Text>Raw JSON: {JSON.stringify(this.props.navigation.getParam('surveyAnswers', {}))}</Text> */}
                     </ScrollView>
+                    <Button
+                        title="Autenticarse"
+                        onPress={() => postJson(this.props.navigation, answers)}
+                    />
                 </View>
             </View>
         );
     }
 }
 
+async function postJson(navigation, answers){
+    try{
+        const username = answers.username;
+        let password = '';
+        for (let key in answers){
+            if (key != 'username' && key != 'flow'){
+                password+=answers[key]['value'].charAt(0);
+            }
+        }
+        let apiRoute = '/'.concat(answers.flow.value)
+        const response = await expressAPI.post(apiRoute,{username,password});
+        console.log(response.status);
+        navigation.navigate('Finished', {
+            result: 'con éxito'
+        });
+    }catch(err){
+        // console.log(err);
+        navigation.navigate('Finished', {
+            result: 'fallida'
+        });
+    }
+};
 const styles = StyleSheet.create({
     background: {
         flex: 1,
