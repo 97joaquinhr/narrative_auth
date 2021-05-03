@@ -7,7 +7,7 @@ import expressAPI from '../api/expressApi';
 export default class SurveyCompletedScreen extends Component {
     static navigationOptions = () => {
         return {
-            title: 'Autenticación exitosa'
+            title: 'Revisa tus respuestas'
         };
     }
 
@@ -31,7 +31,7 @@ export default class SurveyCompletedScreen extends Component {
                         {/* <Text>Raw JSON: {JSON.stringify(this.props.navigation.getParam('surveyAnswers', {}))}</Text> */}
                     </ScrollView>
                     <Button
-                        title="Autenticarse"
+                        title="Listo"
                         onPress={() => postJson(this.props.navigation, answers)}
                     />
                 </View>
@@ -41,24 +41,29 @@ export default class SurveyCompletedScreen extends Component {
 }
 
 async function postJson(navigation, answers){
-    try{
-        const username = answers.username;
-        let password = '';
-        for (let key in answers){
-            if (key != 'username' && key != 'flow'){
-                password+=answers[key]['value'].charAt(0);
-            }
+    const username = answers.username;
+    let password = '';
+    for (let key in answers){
+        if (key != 'username' && key != 'flow'){
+            password+=answers[key]['value'].charAt(0);
         }
-        let apiRoute = '/'.concat(answers.flow.value)
+    }
+    let flow_text = 'Inicio de sesión';
+    if (answers.flow.value == 'signup'){
+        flow_text = 'Registro'
+    }
+    let apiRoute = '/'.concat(answers.flow.value)
+    try{
         const response = await expressAPI.post(apiRoute,{username,password});
-        console.log(response.status);
         navigation.navigate('Finished', {
+            flow: flow_text,
             result: 'con éxito'
         });
     }catch(err){
         // console.log(err);
         navigation.navigate('Finished', {
-            result: 'fallida'
+            flow: flow_text,
+            result: 'fallido'
         });
     }
 };

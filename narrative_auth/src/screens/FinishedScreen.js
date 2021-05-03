@@ -8,7 +8,7 @@ const FinishedScreen = ({navigation})=>{
     return (
         <>
             <Spacer>
-                <Text h3> Autenticación {navigation.getParam('result')}</Text>
+                <Text h3> {navigation.getParam('flow')} {navigation.getParam('result')}</Text>
             </Spacer>
             <Spacer>
                 <Button

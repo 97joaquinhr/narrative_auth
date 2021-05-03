@@ -22,7 +22,10 @@ const survey = [
                 optionText: 'Registrarse',
                 value: 'signup'
             }
-        ]
+        ],
+        questionSettings:{
+            autoAdvance: true
+        }
     },
     {
         questionType: 'TextInput',
