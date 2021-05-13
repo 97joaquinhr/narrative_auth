@@ -13,6 +13,7 @@ export default class SurveyCompletedScreen extends Component {
 
     render() {
         const answers = this.props.navigation.getParam('surveyAnswers');
+        const startTime = this.props.navigation.getParam('startTime');
 
         return (
             <View style={styles.background}>
@@ -32,7 +33,8 @@ export default class SurveyCompletedScreen extends Component {
                     </ScrollView>
                     <Button
                         title="Listo"
-                        onPress={() => postJson(this.props.navigation, answers)}
+                        onPress={() => postJson(
+                            this.props.navigation, answers, startTime)}
                     />
                 </View>
             </View>
@@ -40,26 +42,30 @@ export default class SurveyCompletedScreen extends Component {
     }
 }
 
-async function postJson(navigation, answers){
+async function postJson(navigation, answers, startTime) {
     const username = answers.username;
+    let endTime = new Date();
+    let secondsTaken = (endTime - startTime) / 1000;
+    secondsTaken = Math.round(secondsTaken)
     let password = '';
-    for (let key in answers){
-        if (key != 'username' && key != 'flow'){
-            password+=answers[key]['value'].charAt(0);
+    for (let key in answers) {
+        if (key != 'username' && key != 'flow') {
+            password += answers[key]['value'].charAt(0);
         }
     }
     let flow_text = 'Inicio de sesión';
-    if (answers.flow.value == 'signup'){
+    if (answers.flow.value == 'signup') {
         flow_text = 'Registro'
     }
     let apiRoute = '/'.concat(answers.flow.value)
-    try{
-        const response = await expressAPI.post(apiRoute,{username,password});
+    try {
+        const response = await expressAPI.post(
+            apiRoute, { username, password, secondsTaken });
         navigation.navigate('Finished', {
             flow: flow_text,
             result: 'con éxito'
         });
-    }catch(err){
+    } catch (err) {
         // console.log(err);
         navigation.navigate('Finished', {
             flow: flow_text,

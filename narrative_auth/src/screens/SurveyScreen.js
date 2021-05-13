@@ -76,8 +76,8 @@ const survey = [
                 value: 'c_escuela'
             },
             {
-                optionText: 'Un cuarto',
-                value: 'd_cuarto'
+                optionText: 'Un parque',
+                value: 'd_parque'
             }
         ]
     },
@@ -112,20 +112,20 @@ const survey = [
         questionId: 'comida',
         options: [
             {
-                optionText: 'Una fruta',
+                optionText: 'Fruta',
                 value: 'a_fruta'
             },
             {
-                optionText: 'Una verdura',
-                value: 'b_verdura'
+                optionText: 'Ensalada',
+                value: 'b_ensalada'
             },
             {
-                optionText: 'Una botana',
-                value: 'c_botana'
+                optionText: 'Pescado',
+                value: 'c_pescado'
             },
             {
-                optionText: 'Un guisado',
-                value: 'd_guisado'
+                optionText: 'Tacos',
+                value: 'd_tacos'
             }
         ]
     },
@@ -164,16 +164,16 @@ const survey = [
                 value: 'a_pop'
             },
             {
-                optionText: 'Hip Hop',
-                value: 'b_hip_hop'
+                optionText: 'Rock',
+                value: 'b_rock'
             },
             {
                 optionText: 'Jazz',
                 value: 'c_jazz'
             },
             {
-                optionText: 'Clasica',
-                value: 'd_clasica'
+                optionText: 'Instrumental',
+                value: 'd_instrumental'
             }
         ]
     },
@@ -234,7 +234,12 @@ export default class SurveyScreen extends Component {
         const answersAsObj = {};
         for (const elem of infoQuestionsRemoved) { answersAsObj[elem.questionId] = elem.value; }
 
-        this.props.navigation.navigate('SurveyCompleted', { surveyAnswers: answersAsObj });
+        this.props.navigation.navigate(
+            'SurveyCompleted',
+            {
+                surveyAnswers: answersAsObj,
+                startTime: this.state.startTime
+            });
     }
 
     /**
@@ -242,12 +247,9 @@ export default class SurveyScreen extends Component {
      *  additional steps in response to the user's answers.
      */
     onAnswerSubmitted(answer) {
-        this.setState({ answersSoFar: JSON.stringify(this.surveyRef.getAnswers(), 2) });
         switch (answer.questionId) {
-            case 'favoriteColor': {
-                if (COLORS.includes(answer.value.toLowerCase())) {
-                    this.setState({ backgroundColor: answer.value.toLowerCase() });
-                }
+            case 'flow': {
+                this.setState({ startTime: new Date() });
                 break;
             }
             default:
