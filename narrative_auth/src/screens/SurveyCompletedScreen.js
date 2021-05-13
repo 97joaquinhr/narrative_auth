@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'center',
         backgroundColor: 'white',
-        elevation: 20,
         borderRadius: 10,
         maxHeight: '80%',
     },

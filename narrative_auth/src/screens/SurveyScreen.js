@@ -327,6 +327,9 @@ export default class SurveyScreen extends Component {
         return (
             <View>
                 <TextInput
+                    autoCapitalize='none'
+                    secureTextEntry={true}
+                    keyboardType={"visible-password"}
                     style={styles.textBox}
                     onChangeText={text => onChange(text)}
                     numberOfLines={1}
@@ -339,7 +342,6 @@ export default class SurveyScreen extends Component {
                     blurOnSubmit
                     returnKeyType='done'
                     autoCorrect={false}
-                    autoCapitalize={'none'}
                 />
             </View>
         );
